@@ -10,4 +10,6 @@ setup(name='libpulseaudio',
       license='LGPL',
       url='http://github.com/valodim/python-pulseaudio',
       packages=['pulseaudio'],
+      provides=['libpulseaudio']
+      download_url='http://datatomb.de/~valodim/libpulseaudio-0.9.22.tar.gz'
      )
