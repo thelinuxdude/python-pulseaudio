@@ -3,7 +3,7 @@
 from distutils.core import setup
 
 setup(name='libpulseaudio',
-      version='0.9.22.1',
+      version='1.1',
       description='simple libpulseaudio bindings',
       author='Valodim',
       author_email='valodim@mugenguild.com',
@@ -11,5 +11,5 @@ setup(name='libpulseaudio',
       url='http://github.com/valodim/python-pulseaudio',
       packages=['pulseaudio'],
       provides=['libpulseaudio']
-      download_url='http://datatomb.de/~valodim/libpulseaudio-0.9.22.1.tar.gz'
+      download_url='http://datatomb.de/~valodim/libpulseaudio-1.1.tar.gz'
      )
