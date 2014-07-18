@@ -1,232 +1,255 @@
-# generation commands
-# python h2xml.py -I $PWD -o pa.xml pulse/mainloop-api.h pulse/sample.h pulse/def.h pulse/operation.h pulse/context.h pulse/channelmap.h pulse/volume.h pulse/stream.h pulse/introspect.h pulse/subscribe.h pulse/scache.h pulse/version.h pulse/error.h pulse/xmalloc.h pulse/utf8.h pulse/thread-mainloop.h pulse/mainloop.h pulse/mainloop-signal.h pulse/util.h pulse/timeval.h
-# python xml2py.py -k efst -o lib_pulseaudio.py -l 'pulse' -r '(pa|PA)_.+' pa.xml
-
 from ctypes import *
 
 _libraries = {}
 _libraries['libpulse.so.0'] = CDLL('libpulse.so.0')
 STRING = c_char_p
+_libraries['libpulse-simple.so.0'] = CDLL('libpulse-simple.so.0')
 
 
-PA_STREAM_INTERPOLATE_TIMING = 2
-PA_STREAM_START_CORKED = 1
-PA_SOURCE_INVALID_STATE = -1
-PA_CHANNEL_POSITION_AUX14 = 26
-PA_STREAM_NOFLAGS = 0
-PA_STREAM_AUTO_TIMING_UPDATE = 8
-PA_ERR_MAX = 27
-PA_ERR_BUSY = 26
-PA_STREAM_NOT_MONOTONIC = 4
-PA_ERR_IO = 25
+PA_STREAM_EARLY_REQUESTS = 16384
+PA_STREAM_ADJUST_LATENCY = 8192
+PA_STREAM_START_MUTED = 4096
+PA_STREAM_PEAK_DETECT = 2048
+PA_ERR_EXIST = 4
+PA_STREAM_DONT_MOVE = 512
+PA_STREAM_FIX_CHANNELS = 256
 PA_STREAM_FIX_RATE = 128
+PA_SUBSCRIPTION_EVENT_TYPE_MASK = 48
+PA_STREAM_NO_REMIX_CHANNELS = 32
+PA_STREAM_AUTO_TIMING_UPDATE = 8
+PA_STREAM_NOT_MONOTONIC = 4
+PA_STREAM_INTERPOLATE_TIMING = 2
+PA_PORT_AVAILABLE_UNKNOWN = 0
+PA_STREAM_NOFLAGS = 0
+PA_SEEK_ABSOLUTE = 1
+PA_AUTOLOAD_SINK = 0
+PA_CONTEXT_READY = 4
+PA_ENCODING_DTS_IEC61937 = 5
+PA_IO_EVENT_ERROR = 8
+PA_CHANNEL_POSITION_AUX8 = 20
+PA_IO_EVENT_HANGUP = 4
+PA_CHANNEL_POSITION_AUX23 = 35
+PA_SUBSCRIPTION_MASK_ALL = 767
+PA_CHANNEL_POSITION_AUX7 = 19
+PA_SUBSCRIPTION_MASK_CARD = 512
+PA_SUBSCRIPTION_MASK_SERVER = 128
+PA_SUBSCRIPTION_MASK_SAMPLE_CACHE = 64
+PA_SINK_FLAT_VOLUME = 64
+PA_SUBSCRIPTION_MASK_CLIENT = 32
+PA_SUBSCRIPTION_MASK_MODULE = 16
+PA_CHANNEL_POSITION_AUX6 = 18
+PA_SUBSCRIPTION_MASK_SINK_INPUT = 4
+PA_ENCODING_INVALID = -1
+PA_SUBSCRIPTION_MASK_SOURCE = 2
+PA_ENCODING_PCM = 1
+PA_IO_EVENT_NULL = 0
+PA_SOURCE_DYNAMIC_LATENCY = 64
+PA_STREAM_NO_REMAP_CHANNELS = 16
+PA_SOURCE_DECIBEL_VOLUME = 32
+PA_CHANNEL_POSITION_TOP_FRONT_LEFT = 45
+PA_SUBSCRIPTION_EVENT_SOURCE_OUTPUT = 3
+PA_SINK_UNLINKED = -3
+PA_ENCODING_MAX = 7
+PA_SINK_INIT = -2
+PA_SOURCE_HARDWARE = 4
+PA_SUBSCRIPTION_EVENT_REMOVE = 32
+PA_SUBSCRIPTION_EVENT_CHANGE = 16
+PA_SUBSCRIPTION_EVENT_NEW = 0
+PA_SUBSCRIPTION_EVENT_FACILITY_MASK = 15
+PA_SUBSCRIPTION_EVENT_CARD = 9
+PA_SUBSCRIPTION_EVENT_AUTOLOAD = 8
+PA_STREAM_VARIABLE_RATE = 1024
+PA_SUBSCRIPTION_EVENT_SERVER = 7
+PA_SINK_IDLE = 1
+PA_SUBSCRIPTION_EVENT_SAMPLE_CACHE = 6
+PA_SUBSCRIPTION_EVENT_CLIENT = 5
+PA_SUBSCRIPTION_EVENT_MODULE = 4
+PA_SUBSCRIPTION_EVENT_SINK_INPUT = 2
+PA_CONTEXT_AUTHORIZING = 2
+PA_SUBSCRIPTION_EVENT_SOURCE = 1
+PA_CHANNEL_POSITION_AUX26 = 38
+PA_SINK_RUNNING = 0
+PA_SUBSCRIPTION_EVENT_SINK = 0
+PA_SOURCE_HW_VOLUME_CTRL = 1
+PA_CHANNEL_POSITION_FRONT_RIGHT_OF_CENTER = 9
+PA_SOURCE_NOFLAGS = 0
+PA_ERR_MAX = 27
+PA_ERR_IO = 25
 PA_ERR_FORKED = 24
+PA_ERR_NOTIMPLEMENTED = 23
 PA_ERR_NOEXTENSION = 21
 PA_ERR_NOTSUPPORTED = 19
+PA_CHANNEL_POSITION_SUBWOOFER = 7
 PA_ERR_VERSION = 17
-PA_STREAM_DONT_MOVE = 512
-PA_ERR_NODATA = 16
 PA_ERR_BADSTATE = 15
-PA_ERR_MODINITFAILED = 14
+PA_SOURCE_UNLINKED = -3
+PA_ERR_INVALIDSERVER = 13
 PA_ERR_KILLED = 12
+PA_CHANNEL_POSITION_LFE = 7
 PA_ERR_CONNECTIONTERMINATED = 11
-PA_ERR_INTERNAL = 10
+PA_SOURCE_RUNNING = 0
+PA_ERR_BUSY = 26
+PA_SOURCE_INVALID_STATE = -1
 PA_ERR_TIMEOUT = 8
-PA_STREAM_ADJUST_LATENCY = 8192
-PA_STREAM_PEAK_DETECT = 2048
+PA_STREAM_RECORD = 2
+PA_DEVICE_TYPE_SOURCE = 1
 PA_ERR_CONNECTIONREFUSED = 6
 PA_ERR_NOENTITY = 5
+PA_CHANNEL_POSITION_AUX0 = 12
+PA_CHANNEL_POSITION_REAR_CENTER = 4
+PA_OPERATION_DONE = 1
 PA_ERR_AUTHKEY = 9
-PA_ERR_EXIST = 4
-PA_STREAM_DONT_INHIBIT_AUTO_SUSPEND = 32768
+PA_ERR_UNKNOWN = 20
+PA_CHANNEL_POSITION_AUX16 = 28
+PA_ERR_MODINITFAILED = 14
+PA_ERR_TOOLARGE = 18
+PA_STREAM_PASSTHROUGH = 524288
+PA_SEEK_RELATIVE_END = 3
+PA_SEEK_RELATIVE_ON_READ = 2
+PA_SINK_HARDWARE = 4
+PA_ENCODING_MPEG2_AAC_IEC61937 = 6
+PA_ENCODING_MPEG_IEC61937 = 4
+PA_SAMPLE_MAX = 13
+PA_ENCODING_ANY = 0
+PA_ERR_NODATA = 16
+PA_CHANNEL_POSITION_MONO = 0
+PA_CHANNEL_POSITION_REAR_RIGHT = 6
+PA_CHANNEL_POSITION_REAR_LEFT = 5
+PA_CHANNEL_POSITION_CENTER = 3
+PA_SINK_DECIBEL_VOLUME = 32
+PA_CHANNEL_POSITION_RIGHT = 2
+PA_CHANNEL_POSITION_LEFT = 1
+PA_CHANNEL_POSITION_FRONT_CENTER = 3
+PA_CHANNEL_POSITION_FRONT_RIGHT = 2
+PA_SOURCE_INIT = -2
+PA_CHANNEL_POSITION_INVALID = -1
+PA_SAMPLE_S24LE = 9
+PA_SOURCE_SUSPENDED = 2
+PA_SINK_SET_FORMATS = 256
+PA_ERR_PROTOCOL = 7
+PA_SOURCE_IDLE = 1
+PA_STREAM_FIX_FORMAT = 64
+PA_SINK_DYNAMIC_LATENCY = 128
+PA_SAMPLE_S32LE = 7
+PA_ERR_INTERNAL = 10
+PA_CHANNEL_POSITION_AUX14 = 26
+PA_STREAM_TERMINATED = 4
+PA_SAMPLE_FLOAT32LE = 5
+PA_STREAM_FAILED = 3
+PA_STREAM_UNCONNECTED = 0
+PA_SINK_HW_VOLUME_CTRL = 1
+PA_STREAM_UPLOAD = 3
+PA_CONTEXT_CONNECTING = 1
+PA_UPDATE_REPLACE = 2
+PA_CHANNEL_POSITION_FRONT_LEFT_OF_CENTER = 8
+PA_UPDATE_SET = 0
 PA_ERR_INVALID = 3
 PA_ERR_COMMAND = 2
 PA_ERR_ACCESS = 1
-PA_STREAM_FIX_FORMAT = 64
-PA_STREAM_NO_REMIX_CHANNELS = 32
-PA_STREAM_START_UNMUTED = 65536
-PA_CHANNEL_MAP_AIFF = 0
-PA_STREAM_TERMINATED = 4
-PA_IO_EVENT_NULL = 0
-PA_STREAM_PLAYBACK = 1
-PA_STREAM_FAIL_ON_SUSPEND = 131072
-PA_SOURCE_DYNAMIC_LATENCY = 64
-PA_SOURCE_HW_MUTE_CTRL = 16
-PA_SOURCE_NETWORK = 8
-PA_CHANNEL_POSITION_AUX6 = 18
-PA_SOURCE_HARDWARE = 4
-PA_SOURCE_LATENCY = 2
-PA_SOURCE_HW_VOLUME_CTRL = 1
-PA_SOURCE_NOFLAGS = 0
+PA_OK = 0
+PA_ENCODING_EAC3_IEC61937 = 3
 PA_ERR_OBSOLETE = 22
-PA_OPERATION_CANCELLED = 2
-PA_OPERATION_DONE = 1
-PA_ERR_UNKNOWN = 20
-PA_SEEK_ABSOLUTE = 1
-PA_STREAM_FIX_CHANNELS = 256
-PA_OPERATION_RUNNING = 0
-PA_ERR_TOOLARGE = 18
-PA_STREAM_UNCONNECTED = 0
-PA_STREAM_VARIABLE_RATE = 1024
-PA_ERR_INVALIDSERVER = 13
-PA_SINK_DYNAMIC_LATENCY = 128
-PA_SINK_FLAT_VOLUME = 64
+PA_SINK_SUSPENDED = 2
+PA_DIRECTION_INPUT = 2
+PA_SINK_INVALID_STATE = -1
+PA_CHANNEL_POSITION_AUX12 = 24
+PA_CHANNEL_POSITION_AUX29 = 41
+PA_PORT_AVAILABLE_YES = 2
+PA_PORT_AVAILABLE_NO = 1
+PA_SUBSCRIPTION_MASK_SOURCE_OUTPUT = 8
 PA_SINK_HW_MUTE_CTRL = 16
 PA_SINK_NETWORK = 8
-PA_SINK_HARDWARE = 4
 PA_SINK_LATENCY = 2
-PA_SINK_HW_VOLUME_CTRL = 1
-PA_CONTEXT_CONNECTING = 1
-PA_SINK_RUNNING = 0
-PA_STREAM_EARLY_REQUESTS = 16384
-PA_CHANNEL_POSITION_FRONT_LEFT_OF_CENTER = 8
-PA_STREAM_RECORD = 2
-PA_SINK_INVALID_STATE = -1
-PA_STREAM_UPLOAD = 3
-PA_ERR_PROTOCOL = 7
-PA_STREAM_START_MUTED = 4096
-PA_SINK_INIT = -2
-PA_CONTEXT_FAILED = 5
-PA_SINK_IDLE = 1
-PA_CONTEXT_READY = 4
-PA_SINK_SUSPENDED = 2
-PA_CONTEXT_AUTHORIZING = 2
-PA_SINK_UNLINKED = -3
-PA_SUBSCRIPTION_EVENT_TYPE_MASK = 48
-PA_SUBSCRIPTION_EVENT_REMOVE = 32
-PA_SEEK_RELATIVE_END = 3
-PA_SUBSCRIPTION_EVENT_CHANGE = 16
-PA_CHANNEL_MAP_ALSA = 1
-PA_SUBSCRIPTION_EVENT_NEW = 0
-PA_CHANNEL_MAP_WAVEEX = 3
-PA_SAMPLE_INVALID = -1
-PA_SUBSCRIPTION_EVENT_CARD = 9
-PA_SUBSCRIPTION_EVENT_AUTOLOAD = 8
-PA_SEEK_RELATIVE = 0
-PA_UPDATE_MERGE = 1
-PA_SUBSCRIPTION_EVENT_CLIENT = 5
-PA_CHANNEL_MAP_OSS = 4
-PA_SUBSCRIPTION_EVENT_MODULE = 4
-PA_SUBSCRIPTION_EVENT_SOURCE_OUTPUT = 3
-PA_UPDATE_SET = 0
-PA_SUBSCRIPTION_EVENT_SINK_INPUT = 2
-PA_CHANNEL_POSITION_AUX10 = 22
-PA_CHANNEL_MAP_DEFAULT = 0
-PA_SUBSCRIPTION_EVENT_SOURCE = 1
-PA_SUBSCRIPTION_EVENT_SINK = 0
+PA_SINK_NOFLAGS = 0
+PA_SAMPLE_S24BE = 10
+PA_DIRECTION_OUTPUT = 1
+PA_DEVICE_TYPE_SINK = 0
+PA_STREAM_PLAYBACK = 1
+PA_SUBSCRIPTION_MASK_SINK = 1
+PA_CHANNEL_POSITION_AUX11 = 23
+PA_STREAM_RELATIVE_VOLUME = 262144
+PA_SUBSCRIPTION_MASK_NULL = 0
+PA_STREAM_FAIL_ON_SUSPEND = 131072
+PA_STREAM_START_UNMUTED = 65536
+PA_STREAM_DONT_INHIBIT_AUTO_SUSPEND = 32768
+PA_SOURCE_FLAT_VOLUME = 128
+PA_STREAM_NODIRECTION = 0
 PA_CONTEXT_NOFAIL = 2
-PA_CONTEXT_NOAUTOSPAWN = 1
-PA_CHANNEL_POSITION_REAR_LEFT = 5
-PA_SUBSCRIPTION_EVENT_SERVER = 7
+PA_CHANNEL_POSITION_AUX10 = 22
+PA_AUTOLOAD_SOURCE = 1
+PA_CHANNEL_POSITION_AUX27 = 39
+PA_IO_EVENT_OUTPUT = 2
+PA_OPERATION_CANCELLED = 2
+PA_SOURCE_LATENCY = 2
+PA_STREAM_READY = 2
+PA_STREAM_CREATING = 1
+PA_OPERATION_RUNNING = 0
+PA_SOURCE_HW_MUTE_CTRL = 16
 PA_CHANNEL_POSITION_TOP_REAR_CENTER = 50
+PA_SUBSCRIPTION_MASK_AUTOLOAD = 256
+PA_IO_EVENT_INPUT = 1
 PA_CHANNEL_POSITION_TOP_REAR_RIGHT = 49
-PA_CHANNEL_POSITION_TOP_REAR_LEFT = 48
-PA_CONTEXT_NOFLAGS = 0
-PA_CHANNEL_POSITION_TOP_FRONT_CENTER = 47
-PA_CHANNEL_POSITION_TOP_FRONT_RIGHT = 46
-PA_SEEK_RELATIVE_ON_READ = 2
-PA_CHANNEL_POSITION_TOP_FRONT_LEFT = 45
-PA_CHANNEL_POSITION_TOP_CENTER = 44
+PA_CHANNEL_MAP_WAVEEX = 3
+PA_CHANNEL_MAP_DEFAULT = 0
+PA_STREAM_START_CORKED = 1
+PA_CONTEXT_TERMINATED = 6
+PA_CONTEXT_FAILED = 5
+PA_SEEK_RELATIVE = 0
+PA_CONTEXT_SETTING_NAME = 3
+PA_CHANNEL_POSITION_MAX = 51
+PA_CHANNEL_POSITION_AUX24 = 36
 PA_CONTEXT_UNCONNECTED = 0
+PA_CHANNEL_POSITION_AUX25 = 37
+PA_CHANNEL_POSITION_TOP_CENTER = 44
+PA_CHANNEL_POSITION_TOP_REAR_LEFT = 48
+PA_CHANNEL_POSITION_TOP_FRONT_CENTER = 47
+PA_CHANNEL_MAP_DEF_MAX = 5
+PA_CHANNEL_MAP_OSS = 4
 PA_CHANNEL_POSITION_AUX31 = 43
 PA_CHANNEL_POSITION_AUX30 = 42
-PA_CHANNEL_POSITION_AUX29 = 41
-PA_CONTEXT_SETTING_NAME = 3
-PA_CHANNEL_POSITION_FRONT_RIGHT = 2
-PA_SUBSCRIPTION_EVENT_FACILITY_MASK = 15
-PA_OK = 0
+PA_CHANNEL_POSITION_FRONT_LEFT = 1
+PA_CHANNEL_MAP_AIFF = 0
 PA_CHANNEL_MAP_AUX = 2
-PA_AUTOLOAD_SINK = 0
-PA_SAMPLE_U8 = 0
-PA_SUBSCRIPTION_EVENT_SAMPLE_CACHE = 6
-PA_CHANNEL_POSITION_AUX28 = 40
-PA_CHANNEL_POSITION_AUX26 = 38
-PA_CHANNEL_POSITION_AUX25 = 37
-PA_SUBSCRIPTION_MASK_SOURCE = 2
-PA_CHANNEL_POSITION_AUX24 = 36
-PA_CHANNEL_POSITION_AUX23 = 35
-PA_CHANNEL_POSITION_AUX22 = 34
-PA_CHANNEL_POSITION_AUX21 = 33
+PA_ENCODING_AC3_IEC61937 = 2
+PA_CHANNEL_POSITION_AUX19 = 31
 PA_CHANNEL_POSITION_AUX18 = 30
-PA_CHANNEL_POSITION_AUX17 = 29
-PA_CHANNEL_POSITION_AUX16 = 28
 PA_CHANNEL_POSITION_AUX15 = 27
-PA_IO_EVENT_ERROR = 8
-PA_IO_EVENT_HANGUP = 4
 PA_CHANNEL_POSITION_AUX13 = 25
-PA_IO_EVENT_OUTPUT = 2
-PA_CHANNEL_POSITION_AUX12 = 24
-PA_IO_EVENT_INPUT = 1
-PA_CHANNEL_POSITION_AUX11 = 23
+PA_CHANNEL_POSITION_AUX28 = 40
 PA_CHANNEL_POSITION_AUX9 = 21
-PA_CHANNEL_POSITION_AUX8 = 20
-PA_CHANNEL_POSITION_AUX7 = 19
-PA_CHANNEL_POSITION_AUX5 = 17
+PA_CHANNEL_POSITION_TOP_FRONT_RIGHT = 46
 PA_CHANNEL_POSITION_AUX4 = 16
-PA_CHANNEL_POSITION_AUX3 = 15
 PA_CHANNEL_POSITION_AUX2 = 14
 PA_CHANNEL_POSITION_AUX1 = 13
-PA_CHANNEL_POSITION_AUX0 = 12
-PA_STREAM_NO_REMAP_CHANNELS = 16
 PA_CHANNEL_POSITION_SIDE_RIGHT = 11
 PA_CHANNEL_POSITION_SIDE_LEFT = 10
-PA_CHANNEL_POSITION_FRONT_RIGHT_OF_CENTER = 9
-PA_CHANNEL_POSITION_SUBWOOFER = 7
-PA_CHANNEL_POSITION_LFE = 7
-PA_SUBSCRIPTION_MASK_ALL = 767
-PA_CHANNEL_POSITION_REAR_RIGHT = 6
-PA_SUBSCRIPTION_MASK_CARD = 512
-PA_CHANNEL_POSITION_REAR_CENTER = 4
-PA_SUBSCRIPTION_MASK_SERVER = 128
-PA_CHANNEL_POSITION_CENTER = 3
-PA_SUBSCRIPTION_MASK_SAMPLE_CACHE = 64
-PA_CHANNEL_POSITION_RIGHT = 2
-PA_SUBSCRIPTION_MASK_CLIENT = 32
-PA_CHANNEL_POSITION_LEFT = 1
-PA_SUBSCRIPTION_MASK_MODULE = 16
-PA_SUBSCRIPTION_MASK_AUTOLOAD = 256
-PA_CHANNEL_POSITION_FRONT_CENTER = 3
-PA_SUBSCRIPTION_MASK_SOURCE_OUTPUT = 8
-PA_SUBSCRIPTION_MASK_SINK_INPUT = 4
-PA_CHANNEL_POSITION_FRONT_LEFT = 1
-PA_CHANNEL_POSITION_MONO = 0
-PA_SUBSCRIPTION_MASK_SINK = 1
-PA_SUBSCRIPTION_MASK_NULL = 0
-PA_CHANNEL_POSITION_AUX27 = 39
-PA_CHANNEL_POSITION_INVALID = -1
-PA_CHANNEL_MAP_DEF_MAX = 5
-PA_STREAM_NODIRECTION = 0
-PA_SINK_DECIBEL_VOLUME = 32
-PA_ERR_NOTIMPLEMENTED = 23
-PA_CHANNEL_POSITION_MAX = 51
-PA_SOURCE_DECIBEL_VOLUME = 32
-PA_STREAM_FAILED = 3
-PA_SOURCE_UNLINKED = -3
-PA_STREAM_READY = 2
-PA_SOURCE_INIT = -2
-PA_STREAM_CREATING = 1
-PA_SOURCE_SUSPENDED = 2
-PA_SOURCE_IDLE = 1
-PA_SOURCE_RUNNING = 0
-PA_CONTEXT_TERMINATED = 6
-PA_CHANNEL_POSITION_AUX20 = 32
-PA_SAMPLE_MAX = 13
+PA_CHANNEL_MAP_ALSA = 1
+PA_SOURCE_NETWORK = 8
+PA_SAMPLE_INVALID = -1
+PA_PROP_TYPE_INT_ARRAY = 2
 PA_SAMPLE_S24_32BE = 12
-PA_CHANNEL_POSITION_AUX19 = 31
-PA_UPDATE_REPLACE = 2
-PA_SAMPLE_ALAW = 1
-PA_SAMPLE_ULAW = 2
-PA_SAMPLE_S16LE = 3
-PA_SAMPLE_S16BE = 4
-PA_SAMPLE_S24LE = 9
-PA_SAMPLE_S32LE = 7
-PA_SAMPLE_S32BE = 8
-PA_SINK_NOFLAGS = 0
-PA_SAMPLE_FLOAT32BE = 6
-PA_SAMPLE_FLOAT32LE = 5
-PA_AUTOLOAD_SOURCE = 1
-PA_SAMPLE_S24BE = 10
 PA_SAMPLE_S24_32LE = 11
+PA_SAMPLE_S32BE = 8
+PA_PROP_TYPE_INT_RANGE = 1
+PA_SAMPLE_FLOAT32BE = 6
+PA_CHANNEL_POSITION_AUX22 = 34
+PA_SAMPLE_S16BE = 4
+PA_SAMPLE_S16LE = 3
+PA_SAMPLE_ULAW = 2
+PA_SAMPLE_ALAW = 1
+PA_SAMPLE_U8 = 0
+PA_CHANNEL_POSITION_AUX21 = 33
+PA_CHANNEL_POSITION_AUX20 = 32
+PA_CONTEXT_NOAUTOSPAWN = 1
+PA_CONTEXT_NOFLAGS = 0
+PA_CHANNEL_POSITION_AUX3 = 15
+PA_UPDATE_MERGE = 1
+PA_CHANNEL_POSITION_AUX5 = 17
+PA_CHANNEL_POSITION_AUX17 = 29
+PA_PROP_TYPE_INVALID = -1
+PA_PROP_TYPE_STRING_ARRAY = 4
+PA_PROP_TYPE_STRING = 3
+PA_PROP_TYPE_INT = 0
 
 # values for enumeration 'pa_channel_position'
 pa_channel_position = c_int # enum
@@ -268,7 +291,7 @@ pa_channel_position_from_string.argtypes = [STRING]
 pa_channel_position_to_pretty_string = _libraries['libpulse.so.0'].pa_channel_position_to_pretty_string
 pa_channel_position_to_pretty_string.restype = STRING
 pa_channel_position_to_pretty_string.argtypes = [pa_channel_position_t]
-size_t = c_uint
+size_t = c_ulong
 pa_channel_map_snprint = _libraries['libpulse.so.0'].pa_channel_map_snprint
 pa_channel_map_snprint.restype = STRING
 pa_channel_map_snprint.argtypes = [STRING, size_t, POINTER(pa_channel_map)]
@@ -422,6 +445,9 @@ pa_context_rttime_new.argtypes = [POINTER(pa_context), pa_usec_t, pa_time_event_
 pa_context_rttime_restart = _libraries['libpulse.so.0'].pa_context_rttime_restart
 pa_context_rttime_restart.restype = None
 pa_context_rttime_restart.argtypes = [POINTER(pa_context), POINTER(pa_time_event), pa_usec_t]
+pa_context_get_tile_size = _libraries['libpulse.so.0'].pa_context_get_tile_size
+pa_context_get_tile_size.restype = size_t
+pa_context_get_tile_size.argtypes = [POINTER(pa_context), POINTER(pa_sample_spec)]
 
 # values for enumeration 'pa_stream_state'
 pa_stream_state = c_int # enum
@@ -430,6 +456,14 @@ pa_stream_state_t = pa_stream_state
 # values for enumeration 'pa_operation_state'
 pa_operation_state = c_int # enum
 pa_operation_state_t = pa_operation_state
+
+# values for enumeration 'pa_direction'
+pa_direction = c_int # enum
+pa_direction_t = pa_direction
+
+# values for enumeration 'pa_device_type'
+pa_device_type = c_int # enum
+pa_device_type_t = pa_device_type
 
 # values for enumeration 'pa_stream_direction'
 pa_stream_direction = c_int # enum
@@ -448,6 +482,10 @@ pa_buffer_attr._fields_ = [
     ('fragsize', uint32_t),
 ]
 
+# values for enumeration 'pa_error_code'
+pa_error_code = c_int # enum
+pa_error_code_t = pa_error_code
+
 # values for enumeration 'pa_subscription_mask'
 pa_subscription_mask = c_int # enum
 pa_subscription_mask_t = pa_subscription_mask
@@ -458,7 +496,6 @@ pa_subscription_event_type_t = pa_subscription_event_type
 class pa_timing_info(Structure):
     pass
 int64_t = c_int64
-pa_timing_info._pack_ = 4
 pa_timing_info._fields_ = [
     ('timestamp', timeval),
     ('synchronized_clocks', c_int),
@@ -500,22 +537,121 @@ pa_source_flags_t = pa_source_flags
 pa_source_state = c_int # enum
 pa_source_state_t = pa_source_state
 pa_free_cb_t = CFUNCTYPE(None, c_void_p)
+
+# values for enumeration 'pa_port_available'
+pa_port_available = c_int # enum
+pa_port_available_t = pa_port_available
 pa_strerror = _libraries['libpulse.so.0'].pa_strerror
 pa_strerror.restype = STRING
 pa_strerror.argtypes = [c_int]
+
+# values for enumeration 'pa_encoding'
+pa_encoding = c_int # enum
+pa_encoding_t = pa_encoding
+pa_encoding_to_string = _libraries['libpulse.so.0'].pa_encoding_to_string
+pa_encoding_to_string.restype = STRING
+pa_encoding_to_string.argtypes = [pa_encoding_t]
+class pa_format_info(Structure):
+    pass
+pa_format_info._fields_ = [
+    ('encoding', pa_encoding_t),
+    ('plist', POINTER(pa_proplist)),
+]
+pa_format_info_new = _libraries['libpulse.so.0'].pa_format_info_new
+pa_format_info_new.restype = POINTER(pa_format_info)
+pa_format_info_new.argtypes = []
+pa_format_info_copy = _libraries['libpulse.so.0'].pa_format_info_copy
+pa_format_info_copy.restype = POINTER(pa_format_info)
+pa_format_info_copy.argtypes = [POINTER(pa_format_info)]
+pa_format_info_free = _libraries['libpulse.so.0'].pa_format_info_free
+pa_format_info_free.restype = None
+pa_format_info_free.argtypes = [POINTER(pa_format_info)]
+pa_format_info_valid = _libraries['libpulse.so.0'].pa_format_info_valid
+pa_format_info_valid.restype = c_int
+pa_format_info_valid.argtypes = [POINTER(pa_format_info)]
+pa_format_info_is_pcm = _libraries['libpulse.so.0'].pa_format_info_is_pcm
+pa_format_info_is_pcm.restype = c_int
+pa_format_info_is_pcm.argtypes = [POINTER(pa_format_info)]
+pa_format_info_is_compatible = _libraries['libpulse.so.0'].pa_format_info_is_compatible
+pa_format_info_is_compatible.restype = c_int
+pa_format_info_is_compatible.argtypes = [POINTER(pa_format_info), POINTER(pa_format_info)]
+pa_format_info_snprint = _libraries['libpulse.so.0'].pa_format_info_snprint
+pa_format_info_snprint.restype = STRING
+pa_format_info_snprint.argtypes = [STRING, size_t, POINTER(pa_format_info)]
+pa_format_info_from_string = _libraries['libpulse.so.0'].pa_format_info_from_string
+pa_format_info_from_string.restype = POINTER(pa_format_info)
+pa_format_info_from_string.argtypes = [STRING]
+pa_format_info_from_sample_spec = _libraries['libpulse.so.0'].pa_format_info_from_sample_spec
+pa_format_info_from_sample_spec.restype = POINTER(pa_format_info)
+pa_format_info_from_sample_spec.argtypes = [POINTER(pa_sample_spec), POINTER(pa_channel_map)]
+pa_format_info_to_sample_spec = _libraries['libpulse.so.0'].pa_format_info_to_sample_spec
+pa_format_info_to_sample_spec.restype = c_int
+pa_format_info_to_sample_spec.argtypes = [POINTER(pa_format_info), POINTER(pa_sample_spec), POINTER(pa_channel_map)]
+
+# values for enumeration 'pa_prop_type_t'
+pa_prop_type_t = c_int # enum
+pa_format_info_get_prop_type = _libraries['libpulse.so.0'].pa_format_info_get_prop_type
+pa_format_info_get_prop_type.restype = pa_prop_type_t
+pa_format_info_get_prop_type.argtypes = [POINTER(pa_format_info), STRING]
+pa_format_info_get_prop_int = _libraries['libpulse.so.0'].pa_format_info_get_prop_int
+pa_format_info_get_prop_int.restype = c_int
+pa_format_info_get_prop_int.argtypes = [POINTER(pa_format_info), STRING, POINTER(c_int)]
+pa_format_info_get_prop_int_range = _libraries['libpulse.so.0'].pa_format_info_get_prop_int_range
+pa_format_info_get_prop_int_range.restype = c_int
+pa_format_info_get_prop_int_range.argtypes = [POINTER(pa_format_info), STRING, POINTER(c_int), POINTER(c_int)]
+pa_format_info_get_prop_int_array = _libraries['libpulse.so.0'].pa_format_info_get_prop_int_array
+pa_format_info_get_prop_int_array.restype = c_int
+pa_format_info_get_prop_int_array.argtypes = [POINTER(pa_format_info), STRING, POINTER(POINTER(c_int)), POINTER(c_int)]
+pa_format_info_get_prop_string = _libraries['libpulse.so.0'].pa_format_info_get_prop_string
+pa_format_info_get_prop_string.restype = c_int
+pa_format_info_get_prop_string.argtypes = [POINTER(pa_format_info), STRING, POINTER(STRING)]
+pa_format_info_get_prop_string_array = _libraries['libpulse.so.0'].pa_format_info_get_prop_string_array
+pa_format_info_get_prop_string_array.restype = c_int
+pa_format_info_get_prop_string_array.argtypes = [POINTER(pa_format_info), STRING, POINTER(POINTER(STRING)), POINTER(c_int)]
+pa_format_info_free_string_array = _libraries['libpulse.so.0'].pa_format_info_free_string_array
+pa_format_info_free_string_array.restype = None
+pa_format_info_free_string_array.argtypes = [POINTER(STRING), c_int]
+pa_format_info_set_prop_int = _libraries['libpulse.so.0'].pa_format_info_set_prop_int
+pa_format_info_set_prop_int.restype = None
+pa_format_info_set_prop_int.argtypes = [POINTER(pa_format_info), STRING, c_int]
+pa_format_info_set_prop_int_array = _libraries['libpulse.so.0'].pa_format_info_set_prop_int_array
+pa_format_info_set_prop_int_array.restype = None
+pa_format_info_set_prop_int_array.argtypes = [POINTER(pa_format_info), STRING, POINTER(c_int), c_int]
+pa_format_info_set_prop_int_range = _libraries['libpulse.so.0'].pa_format_info_set_prop_int_range
+pa_format_info_set_prop_int_range.restype = None
+pa_format_info_set_prop_int_range.argtypes = [POINTER(pa_format_info), STRING, c_int, c_int]
+pa_format_info_set_prop_string = _libraries['libpulse.so.0'].pa_format_info_set_prop_string
+pa_format_info_set_prop_string.restype = None
+pa_format_info_set_prop_string.argtypes = [POINTER(pa_format_info), STRING, STRING]
+pa_format_info_set_prop_string_array = _libraries['libpulse.so.0'].pa_format_info_set_prop_string_array
+pa_format_info_set_prop_string_array.restype = None
+pa_format_info_set_prop_string_array.argtypes = [POINTER(pa_format_info), STRING, POINTER(STRING), c_int]
+
+# values for enumeration 'pa_sample_format'
+pa_sample_format = c_int # enum
+pa_sample_format_t = pa_sample_format
+pa_format_info_set_sample_format = _libraries['libpulse.so.0'].pa_format_info_set_sample_format
+pa_format_info_set_sample_format.restype = None
+pa_format_info_set_sample_format.argtypes = [POINTER(pa_format_info), pa_sample_format_t]
+pa_format_info_set_rate = _libraries['libpulse.so.0'].pa_format_info_set_rate
+pa_format_info_set_rate.restype = None
+pa_format_info_set_rate.argtypes = [POINTER(pa_format_info), c_int]
+pa_format_info_set_channels = _libraries['libpulse.so.0'].pa_format_info_set_channels
+pa_format_info_set_channels.restype = None
+pa_format_info_set_channels.argtypes = [POINTER(pa_format_info), c_int]
+pa_format_info_set_channel_map = _libraries['libpulse.so.0'].pa_format_info_set_channel_map
+pa_format_info_set_channel_map.restype = None
+pa_format_info_set_channel_map.argtypes = [POINTER(pa_format_info), POINTER(pa_channel_map)]
 class pa_sink_port_info(Structure):
     pass
 pa_sink_port_info._fields_ = [
     ('name', STRING),
     ('description', STRING),
     ('priority', uint32_t),
+    ('available', c_int),
 ]
 class pa_sink_info(Structure):
     pass
-
-# values for enumeration 'pa_sample_format'
-pa_sample_format = c_int # enum
-pa_sample_format_t = pa_sample_format
 pa_sample_spec._fields_ = [
     ('format', pa_sample_format_t),
     ('rate', uint32_t),
@@ -528,7 +664,6 @@ pa_cvolume._fields_ = [
     ('channels', uint8_t),
     ('values', pa_volume_t * 32),
 ]
-pa_sink_info._pack_ = 4
 pa_sink_info._fields_ = [
     ('name', STRING),
     ('index', uint32_t),
@@ -552,6 +687,8 @@ pa_sink_info._fields_ = [
     ('n_ports', uint32_t),
     ('ports', POINTER(POINTER(pa_sink_port_info))),
     ('active_port', POINTER(pa_sink_port_info)),
+    ('n_formats', uint8_t),
+    ('formats', POINTER(POINTER(pa_format_info))),
 ]
 pa_sink_info_cb_t = CFUNCTYPE(None, POINTER(pa_context), POINTER(pa_sink_info), c_int, c_void_p)
 pa_context_get_sink_info_by_name = _libraries['libpulse.so.0'].pa_context_get_sink_info_by_name
@@ -593,10 +730,10 @@ pa_source_port_info._fields_ = [
     ('name', STRING),
     ('description', STRING),
     ('priority', uint32_t),
+    ('available', c_int),
 ]
 class pa_source_info(Structure):
     pass
-pa_source_info._pack_ = 4
 pa_source_info._fields_ = [
     ('name', STRING),
     ('index', uint32_t),
@@ -620,6 +757,8 @@ pa_source_info._fields_ = [
     ('n_ports', uint32_t),
     ('ports', POINTER(POINTER(pa_source_port_info))),
     ('active_port', POINTER(pa_source_port_info)),
+    ('n_formats', uint8_t),
+    ('formats', POINTER(POINTER(pa_format_info))),
 ]
 pa_source_info_cb_t = CFUNCTYPE(None, POINTER(pa_context), POINTER(pa_source_info), c_int, c_void_p)
 pa_context_get_source_info_by_name = _libraries['libpulse.so.0'].pa_context_get_source_info_by_name
@@ -724,6 +863,19 @@ pa_card_profile_info._fields_ = [
     ('n_sources', uint32_t),
     ('priority', uint32_t),
 ]
+class pa_card_port_info(Structure):
+    pass
+pa_card_port_info._fields_ = [
+    ('name', STRING),
+    ('description', STRING),
+    ('priority', uint32_t),
+    ('available', c_int),
+    ('direction', c_int),
+    ('n_profiles', uint32_t),
+    ('profiles', POINTER(POINTER(pa_card_profile_info))),
+    ('proplist', POINTER(pa_proplist)),
+    ('latency_offset', int64_t),
+]
 class pa_card_info(Structure):
     pass
 pa_card_info._fields_ = [
@@ -735,6 +887,8 @@ pa_card_info._fields_ = [
     ('profiles', POINTER(pa_card_profile_info)),
     ('active_profile', POINTER(pa_card_profile_info)),
     ('proplist', POINTER(pa_proplist)),
+    ('n_ports', uint32_t),
+    ('ports', POINTER(POINTER(pa_card_port_info))),
 ]
 pa_card_info_cb_t = CFUNCTYPE(None, POINTER(pa_context), POINTER(pa_card_info), c_int, c_void_p)
 pa_context_get_card_info_by_index = _libraries['libpulse.so.0'].pa_context_get_card_info_by_index
@@ -752,9 +906,11 @@ pa_context_set_card_profile_by_index.argtypes = [POINTER(pa_context), uint32_t, 
 pa_context_set_card_profile_by_name = _libraries['libpulse.so.0'].pa_context_set_card_profile_by_name
 pa_context_set_card_profile_by_name.restype = POINTER(pa_operation)
 pa_context_set_card_profile_by_name.argtypes = [POINTER(pa_context), STRING, STRING, pa_context_success_cb_t, c_void_p]
+pa_context_set_port_latency_offset = _libraries['libpulse.so.0'].pa_context_set_port_latency_offset
+pa_context_set_port_latency_offset.restype = POINTER(pa_operation)
+pa_context_set_port_latency_offset.argtypes = [POINTER(pa_context), STRING, STRING, int64_t, pa_context_success_cb_t, c_void_p]
 class pa_sink_input_info(Structure):
     pass
-pa_sink_input_info._pack_ = 4
 pa_sink_input_info._fields_ = [
     ('index', uint32_t),
     ('name', STRING),
@@ -770,6 +926,10 @@ pa_sink_input_info._fields_ = [
     ('driver', STRING),
     ('mute', c_int),
     ('proplist', POINTER(pa_proplist)),
+    ('corked', c_int),
+    ('has_volume', c_int),
+    ('volume_writable', c_int),
+    ('format', POINTER(pa_format_info)),
 ]
 pa_sink_input_info_cb_t = CFUNCTYPE(None, POINTER(pa_context), POINTER(pa_sink_input_info), c_int, c_void_p)
 pa_context_get_sink_input_info = _libraries['libpulse.so.0'].pa_context_get_sink_input_info
@@ -795,7 +955,6 @@ pa_context_kill_sink_input.restype = POINTER(pa_operation)
 pa_context_kill_sink_input.argtypes = [POINTER(pa_context), uint32_t, pa_context_success_cb_t, c_void_p]
 class pa_source_output_info(Structure):
     pass
-pa_source_output_info._pack_ = 4
 pa_source_output_info._fields_ = [
     ('index', uint32_t),
     ('name', STRING),
@@ -809,6 +968,12 @@ pa_source_output_info._fields_ = [
     ('resample_method', STRING),
     ('driver', STRING),
     ('proplist', POINTER(pa_proplist)),
+    ('corked', c_int),
+    ('volume', pa_cvolume),
+    ('mute', c_int),
+    ('has_volume', c_int),
+    ('volume_writable', c_int),
+    ('format', POINTER(pa_format_info)),
 ]
 pa_source_output_info_cb_t = CFUNCTYPE(None, POINTER(pa_context), POINTER(pa_source_output_info), c_int, c_void_p)
 pa_context_get_source_output_info = _libraries['libpulse.so.0'].pa_context_get_source_output_info
@@ -823,6 +988,12 @@ pa_context_move_source_output_by_name.argtypes = [POINTER(pa_context), uint32_t,
 pa_context_move_source_output_by_index = _libraries['libpulse.so.0'].pa_context_move_source_output_by_index
 pa_context_move_source_output_by_index.restype = POINTER(pa_operation)
 pa_context_move_source_output_by_index.argtypes = [POINTER(pa_context), uint32_t, uint32_t, pa_context_success_cb_t, c_void_p]
+pa_context_set_source_output_volume = _libraries['libpulse.so.0'].pa_context_set_source_output_volume
+pa_context_set_source_output_volume.restype = POINTER(pa_operation)
+pa_context_set_source_output_volume.argtypes = [POINTER(pa_context), uint32_t, POINTER(pa_cvolume), pa_context_success_cb_t, c_void_p]
+pa_context_set_source_output_mute = _libraries['libpulse.so.0'].pa_context_set_source_output_mute
+pa_context_set_source_output_mute.restype = POINTER(pa_operation)
+pa_context_set_source_output_mute.argtypes = [POINTER(pa_context), uint32_t, c_int, pa_context_success_cb_t, c_void_p]
 pa_context_kill_source_output = _libraries['libpulse.so.0'].pa_context_kill_source_output
 pa_context_kill_source_output.restype = POINTER(pa_operation)
 pa_context_kill_source_output.argtypes = [POINTER(pa_context), uint32_t, pa_context_success_cb_t, c_void_p]
@@ -841,7 +1012,6 @@ pa_context_stat.restype = POINTER(pa_operation)
 pa_context_stat.argtypes = [POINTER(pa_context), pa_stat_info_cb_t, c_void_p]
 class pa_sample_info(Structure):
     pass
-pa_sample_info._pack_ = 4
 pa_sample_info._fields_ = [
     ('index', uint32_t),
     ('name', STRING),
@@ -1000,6 +1170,7 @@ pa_mainloop_set_poll_func.restype = None
 pa_mainloop_set_poll_func.argtypes = [POINTER(pa_mainloop), pa_poll_func, c_void_p]
 pa_operation._fields_ = [
 ]
+pa_operation_notify_cb_t = CFUNCTYPE(None, POINTER(pa_operation), c_void_p)
 pa_operation_ref = _libraries['libpulse.so.0'].pa_operation_ref
 pa_operation_ref.restype = POINTER(pa_operation)
 pa_operation_ref.argtypes = [POINTER(pa_operation)]
@@ -1012,6 +1183,9 @@ pa_operation_cancel.argtypes = [POINTER(pa_operation)]
 pa_operation_get_state = _libraries['libpulse.so.0'].pa_operation_get_state
 pa_operation_get_state.restype = pa_operation_state_t
 pa_operation_get_state.argtypes = [POINTER(pa_operation)]
+pa_operation_set_state_callback = _libraries['libpulse.so.0'].pa_operation_set_state_callback
+pa_operation_set_state_callback.restype = None
+pa_operation_set_state_callback.argtypes = [POINTER(pa_operation), pa_operation_notify_cb_t, c_void_p]
 pa_proplist._fields_ = [
 ]
 pa_proplist_new = _libraries['libpulse.so.0'].pa_proplist_new
@@ -1020,6 +1194,9 @@ pa_proplist_new.argtypes = []
 pa_proplist_free = _libraries['libpulse.so.0'].pa_proplist_free
 pa_proplist_free.restype = None
 pa_proplist_free.argtypes = [POINTER(pa_proplist)]
+pa_proplist_key_valid = _libraries['libpulse.so.0'].pa_proplist_key_valid
+pa_proplist_key_valid.restype = c_int
+pa_proplist_key_valid.argtypes = [STRING]
 pa_proplist_sets = _libraries['libpulse.so.0'].pa_proplist_sets
 pa_proplist_sets.restype = c_int
 pa_proplist_sets.argtypes = [POINTER(pa_proplist), STRING, STRING]
@@ -1074,6 +1251,9 @@ pa_proplist_size.argtypes = [POINTER(pa_proplist)]
 pa_proplist_isempty = _libraries['libpulse.so.0'].pa_proplist_isempty
 pa_proplist_isempty.restype = c_int
 pa_proplist_isempty.argtypes = [POINTER(pa_proplist)]
+pa_proplist_equal = _libraries['libpulse.so.0'].pa_proplist_equal
+pa_proplist_equal.restype = c_int
+pa_proplist_equal.argtypes = [POINTER(pa_proplist), POINTER(pa_proplist)]
 pa_bytes_per_second = _libraries['libpulse.so.0'].pa_bytes_per_second
 pa_bytes_per_second.restype = size_t
 pa_bytes_per_second.argtypes = [POINTER(pa_sample_spec)]
@@ -1137,6 +1317,31 @@ pa_context_play_sample.argtypes = [POINTER(pa_context), STRING, STRING, pa_volum
 pa_context_play_sample_with_proplist = _libraries['libpulse.so.0'].pa_context_play_sample_with_proplist
 pa_context_play_sample_with_proplist.restype = POINTER(pa_operation)
 pa_context_play_sample_with_proplist.argtypes = [POINTER(pa_context), STRING, STRING, pa_volume_t, POINTER(pa_proplist), pa_context_play_sample_cb_t, c_void_p]
+class pa_simple(Structure):
+    pass
+pa_simple._fields_ = [
+]
+pa_simple_new = _libraries['libpulse-simple.so.0'].pa_simple_new
+pa_simple_new.restype = POINTER(pa_simple)
+pa_simple_new.argtypes = [STRING, STRING, pa_stream_direction_t, STRING, STRING, POINTER(pa_sample_spec), POINTER(pa_channel_map), POINTER(pa_buffer_attr), POINTER(c_int)]
+pa_simple_free = _libraries['libpulse-simple.so.0'].pa_simple_free
+pa_simple_free.restype = None
+pa_simple_free.argtypes = [POINTER(pa_simple)]
+pa_simple_write = _libraries['libpulse-simple.so.0'].pa_simple_write
+pa_simple_write.restype = c_int
+pa_simple_write.argtypes = [POINTER(pa_simple), c_void_p, size_t, POINTER(c_int)]
+pa_simple_drain = _libraries['libpulse-simple.so.0'].pa_simple_drain
+pa_simple_drain.restype = c_int
+pa_simple_drain.argtypes = [POINTER(pa_simple), POINTER(c_int)]
+pa_simple_read = _libraries['libpulse-simple.so.0'].pa_simple_read
+pa_simple_read.restype = c_int
+pa_simple_read.argtypes = [POINTER(pa_simple), c_void_p, size_t, POINTER(c_int)]
+pa_simple_get_latency = _libraries['libpulse-simple.so.0'].pa_simple_get_latency
+pa_simple_get_latency.restype = pa_usec_t
+pa_simple_get_latency.argtypes = [POINTER(pa_simple), POINTER(c_int)]
+pa_simple_flush = _libraries['libpulse-simple.so.0'].pa_simple_flush
+pa_simple_flush.restype = c_int
+pa_simple_flush.argtypes = [POINTER(pa_simple), POINTER(c_int)]
 pa_stream._fields_ = [
 ]
 pa_stream_success_cb_t = CFUNCTYPE(None, POINTER(pa_stream), c_int, c_void_p)
@@ -1149,6 +1354,9 @@ pa_stream_new.argtypes = [POINTER(pa_context), STRING, POINTER(pa_sample_spec), 
 pa_stream_new_with_proplist = _libraries['libpulse.so.0'].pa_stream_new_with_proplist
 pa_stream_new_with_proplist.restype = POINTER(pa_stream)
 pa_stream_new_with_proplist.argtypes = [POINTER(pa_context), STRING, POINTER(pa_sample_spec), POINTER(pa_channel_map), POINTER(pa_proplist)]
+pa_stream_new_extended = _libraries['libpulse.so.0'].pa_stream_new_extended
+pa_stream_new_extended.restype = POINTER(pa_stream)
+pa_stream_new_extended.argtypes = [POINTER(pa_context), STRING, POINTER(POINTER(pa_format_info)), c_uint, POINTER(pa_proplist)]
 pa_stream_unref = _libraries['libpulse.so.0'].pa_stream_unref
 pa_stream_unref.restype = None
 pa_stream_unref.argtypes = [POINTER(pa_stream)]
@@ -1224,6 +1432,9 @@ pa_stream_set_read_callback.argtypes = [POINTER(pa_stream), pa_stream_request_cb
 pa_stream_set_overflow_callback = _libraries['libpulse.so.0'].pa_stream_set_overflow_callback
 pa_stream_set_overflow_callback.restype = None
 pa_stream_set_overflow_callback.argtypes = [POINTER(pa_stream), pa_stream_notify_cb_t, c_void_p]
+pa_stream_get_underflow_index = _libraries['libpulse.so.0'].pa_stream_get_underflow_index
+pa_stream_get_underflow_index.restype = int64_t
+pa_stream_get_underflow_index.argtypes = [POINTER(pa_stream)]
 pa_stream_set_underflow_callback = _libraries['libpulse.so.0'].pa_stream_set_underflow_callback
 pa_stream_set_underflow_callback.restype = None
 pa_stream_set_underflow_callback.argtypes = [POINTER(pa_stream), pa_stream_notify_cb_t, c_void_p]
@@ -1275,6 +1486,9 @@ pa_stream_get_sample_spec.argtypes = [POINTER(pa_stream)]
 pa_stream_get_channel_map = _libraries['libpulse.so.0'].pa_stream_get_channel_map
 pa_stream_get_channel_map.restype = POINTER(pa_channel_map)
 pa_stream_get_channel_map.argtypes = [POINTER(pa_stream)]
+pa_stream_get_format_info = _libraries['libpulse.so.0'].pa_stream_get_format_info
+pa_stream_get_format_info.restype = POINTER(pa_format_info)
+pa_stream_get_format_info.argtypes = [POINTER(pa_stream)]
 pa_stream_get_buffer_attr = _libraries['libpulse.so.0'].pa_stream_get_buffer_attr
 pa_stream_get_buffer_attr.restype = POINTER(pa_buffer_attr)
 pa_stream_get_buffer_attr.argtypes = [POINTER(pa_stream)]
@@ -1520,6 +1734,9 @@ pa_cvolume_get_position.argtypes = [POINTER(pa_cvolume), POINTER(pa_channel_map)
 pa_cvolume_merge = _libraries['libpulse.so.0'].pa_cvolume_merge
 pa_cvolume_merge.restype = POINTER(pa_cvolume)
 pa_cvolume_merge.argtypes = [POINTER(pa_cvolume), POINTER(pa_cvolume), POINTER(pa_cvolume)]
+pa_cvolume_inc_clamp = _libraries['libpulse.so.0'].pa_cvolume_inc_clamp
+pa_cvolume_inc_clamp.restype = POINTER(pa_cvolume)
+pa_cvolume_inc_clamp.argtypes = [POINTER(pa_cvolume), pa_volume_t, pa_volume_t]
 pa_cvolume_inc = _libraries['libpulse.so.0'].pa_cvolume_inc
 pa_cvolume_inc.restype = POINTER(pa_cvolume)
 pa_cvolume_inc.argtypes = [POINTER(pa_cvolume), pa_volume_t]
@@ -1553,36 +1770,44 @@ __all__ = ['pa_context_set_name',
            'pa_context_get_source_info_by_index',
            'pa_time_event_destroy_cb_t', 'PA_IO_EVENT_HANGUP',
            'pa_client_info', 'pa_context_set_sink_volume_by_name',
-           'pa_stream_request_cb_t', 'PA_STREAM_UPLOAD',
-           'PA_SUBSCRIPTION_MASK_SOURCE', 'PA_ERR_BADSTATE',
+           'pa_stream_request_cb_t', 'PA_DIRECTION_OUTPUT',
+           'PA_STREAM_UPLOAD', 'PA_SUBSCRIPTION_MASK_SOURCE',
            'pa_context_get_protocol_version', 'pa_channel_map_def_t',
-           'pa_context_set_card_profile_by_name',
+           'pa_cvolume_scale', 'pa_context_set_card_profile_by_name',
            'pa_context_get_server_info', 'pa_stream_set_buffer_attr',
            'pa_context_get_sample_info_by_index', 'uint8_t',
-           'pa_get_host_name', 'pa_bytes_to_usec', 'pa_free_cb_t',
+           'pa_get_host_name', 'PA_PROP_TYPE_INT', 'pa_bytes_to_usec',
+           'pa_free_cb_t', 'pa_format_info_set_channel_map',
            'pa_context_get_client_info_list',
            'pa_threaded_mainloop_in_thread', 'pa_xfree',
            'pa_proplist_iterate',
            'pa_context_move_sink_input_by_index',
            'pa_context_suspend_sink_by_name', 'PA_CONTEXT_NOFAIL',
+           'pa_encoding_t', 'PA_SUBSCRIPTION_EVENT_SOURCE_OUTPUT',
            'pa_stream_set_name', 'pa_stream_set_event_callback',
-           'PA_ERR_IO', 'pa_signal_destroy_cb_t',
+           'PA_ERR_IO', 'PA_CHANNEL_POSITION_SUBWOOFER',
+           'pa_signal_destroy_cb_t',
            'pa_channel_position_from_string', '__time_t',
            'pa_seek_mode', 'PA_SUBSCRIPTION_MASK_CLIENT',
            'pa_context_set_sink_volume_by_index',
-           'pa_context_get_module_info', 'pa_sample_spec_init',
+           'PA_DIRECTION_INPUT', 'pa_sample_spec_init',
            'pa_channel_position_mask_t', 'PA_SINK_LATENCY',
-           'pa_cvolume_set_fade',
+           'pa_direction_t', 'pa_cvolume_set_fade',
            'pa_context_remove_autoload_by_name',
-           'pa_mainloop_get_retval', 'PA_SINK_UNLINKED',
+           'pa_mainloop_get_retval',
+           'pa_format_info_set_prop_string_array', 'PA_SINK_UNLINKED',
            'pa_subscription_event_type_t', 'PA_ERR_TIMEOUT',
            'pa_context_get_source_output_info_list', 'pa_sample_spec',
            'pa_context_play_sample_with_proplist',
-           'PA_ERR_NOTSUPPORTED', 'pa_stream_get_channel_map',
-           'pa_channel_map_parse', 'pa_channel_map_equal',
-           'PA_SUBSCRIPTION_EVENT_SINK_INPUT',
-           'PA_STREAM_AUTO_TIMING_UPDATE',
+           'pa_context_suspend_source_by_index',
+           'PA_ENCODING_DTS_IEC61937', 'PA_ERR_NOTSUPPORTED',
+           'pa_stream_get_channel_map', 'pa_channel_map_parse',
+           'pa_channel_map_equal', 'PA_SUBSCRIPTION_EVENT_SINK_INPUT',
+           'pa_cvolume_remap', 'PA_STREAM_AUTO_TIMING_UPDATE',
+           'PA_STREAM_PASSTHROUGH',
            'pa_context_get_autoload_info_by_index',
+           'pa_format_info_is_compatible',
+           'pa_format_info_get_prop_string',
            'pa_context_play_sample_cb_t', 'pa_proplist_size',
            'pa_xstrdup', 'pa_stream_get_timing_info',
            'pa_cvolume_get_position', 'PA_CHANNEL_POSITION_AUX18',
@@ -1593,21 +1818,23 @@ __all__ = ['pa_context_set_name',
            'PA_CHANNEL_POSITION_AUX16', 'PA_CHANNEL_POSITION_AUX17',
            'pa_stream_set_moved_callback', 'pa_stream_trigger',
            'pa_timeval_age', 'PA_SAMPLE_U8', 'PA_SINK_HARDWARE',
-           'pa_stream_get_device_index', 'pa_cvolume_max',
+           'pa_simple_flush', 'pa_stream_get_device_index',
+           'pa_cvolume_max', 'pa_format_info_set_rate',
            'pa_stream_state_t', 'pa_proplist_from_string',
            'PA_CHANNEL_POSITION_INVALID', 'PA_ERR_INTERNAL',
            'PA_CHANNEL_POSITION_FRONT_RIGHT_OF_CENTER',
-           'pa_cvolume_avg', 'pa_stream_state',
+           'pa_cvolume_avg', 'pa_stream_state', 'pa_simple',
            'PA_CONTEXT_UNCONNECTED',
            'PA_CHANNEL_POSITION_FRONT_RIGHT', 'PA_ERR_TOOLARGE',
            'PA_CHANNEL_MAP_ALSA', 'PA_STREAM_FIX_FORMAT',
            'PA_SOURCE_HARDWARE', 'PA_CHANNEL_POSITION_CENTER',
            'pa_context_set_source_volume_by_index',
-           'PA_SINK_DECIBEL_VOLUME', 'pa_stream_get_index',
-           'pa_channel_position_t', 'pa_sample_format_t',
-           'pa_stream_flush', 'pa_io_event_cb_t', 'PA_SEEK_ABSOLUTE',
+           'PA_SINK_DECIBEL_VOLUME', 'pa_operation_ref',
+           'pa_format_info_copy', 'pa_channel_position_t',
+           'pa_sample_format_t', 'pa_stream_flush',
+           'pa_io_event_cb_t', 'PA_SEEK_ABSOLUTE',
            'PA_SOURCE_INVALID_STATE', 'pa_stream_set_write_callback',
-           'PA_SOURCE_LATENCY', 'PA_STREAM_READY',
+           'PA_SOURCE_LATENCY', 'PA_CONTEXT_NOAUTOSPAWN',
            'pa_cvolume_set_position', 'pa_sample_info',
            'pa_subscription_mask_t', 'PA_SUBSCRIPTION_EVENT_SOURCE',
            'pa_io_event_flags', 'pa_context_errno',
@@ -1617,16 +1844,17 @@ __all__ = ['pa_context_set_name',
            'PA_SEEK_RELATIVE_END', 'pa_timing_info',
            'pa_path_get_filename', 'pa_stream_get_buffer_attr',
            'pa_defer_event', 'pa_get_binary_name',
-           'pa_channel_map_can_balance',
-           'pa_stream_set_buffer_attr_callback', 'PA_CHANNEL_MAP_OSS',
+           'pa_channel_map_can_balance', 'pa_error_code_t',
+           'PA_CHANNEL_MAP_OSS', 'pa_format_info_is_pcm',
            'pa_context_get_server_protocol_version',
            'pa_sample_format_is_be', 'PA_SUBSCRIPTION_EVENT_CLIENT',
-           'pa_stream_ref', 'PA_SOURCE_HW_VOLUME_CTRL',
+           'pa_stream_ref', 'PA_SOURCE_HW_VOLUME_CTRL', 'pollfd',
            'PA_SAMPLE_INVALID', 'PA_CHANNEL_POSITION_TOP_FRONT_RIGHT',
            'pa_defer_event_destroy_cb_t', 'pa_strerror',
            'pa_channel_map_snprint', 'PA_STREAM_FIX_RATE',
            'pa_context_drain', 'pa_stream_direction_t',
-           'PA_SUBSCRIPTION_EVENT_SAMPLE_CACHE', 'pa_signal_new',
+           'PA_SUBSCRIPTION_EVENT_SAMPLE_CACHE',
+           'pa_stream_get_format_info', 'pa_signal_new',
            'PA_SAMPLE_S24_32BE', 'PA_SOURCE_NETWORK',
            'PA_SUBSCRIPTION_EVENT_FACILITY_MASK',
            'pa_mainloop_wakeup', 'pa_xstrndup', 'PA_SEEK_RELATIVE',
@@ -1641,27 +1869,33 @@ __all__ = ['pa_context_set_name',
            'PA_SINK_HW_MUTE_CTRL', 'PA_CHANNEL_POSITION_AUX21',
            'PA_CHANNEL_POSITION_AUX20', 'PA_CHANNEL_POSITION_AUX23',
            'PA_CHANNEL_POSITION_AUX22', 'PA_CHANNEL_POSITION_AUX25',
-           'PA_UPDATE_MERGE', 'PA_CHANNEL_POSITION_AUX27',
+           'PA_CHANNEL_POSITION_AUX24', 'PA_CHANNEL_POSITION_AUX27',
            'PA_SOURCE_DYNAMIC_LATENCY', 'PA_CHANNEL_POSITION_AUX29',
            'PA_CHANNEL_POSITION_AUX28',
            'pa_stream_set_started_callback', 'PA_SINK_FLAT_VOLUME',
-           'size_t', 'pa_context_flags', 'pa_utf8_to_locale',
+           'pa_simple_drain', 'size_t', 'pa_context_flags',
+           'PA_PORT_AVAILABLE_NO', 'pa_utf8_to_locale',
            'pa_proplist_sets', 'pa_proplist_setp',
-           'PA_ERR_CONNECTIONTERMINATED',
-           'pa_sw_cvolume_divide_scalar', 'pa_operation_cancel',
-           'PA_CHANNEL_POSITION_TOP_FRONT_CENTER', 'pa_proplist_setf',
+           'PA_ERR_CONNECTIONTERMINATED', 'pa_simple_write',
+           'pa_format_info_free', 'pa_operation_cancel',
+           'PA_DEVICE_TYPE_SINK',
+           'PA_CHANNEL_POSITION_TOP_FRONT_CENTER',
+           'pa_format_info_from_string', 'pa_proplist_setf',
            'pa_cvolume_set', 'pa_bytes_per_second', 'pa_stream',
            'PA_ERR_COMMAND', 'PA_SUBSCRIPTION_MASK_SINK_INPUT',
            'pa_channel_map_to_pretty_name', 'pa_card_info',
            'PA_CONTEXT_SETTING_NAME', 'PA_IO_EVENT_OUTPUT',
            'pa_context_set_card_profile_by_index',
            'PA_CHANNEL_POSITION_FRONT_LEFT_OF_CENTER',
-           'pa_sample_info_cb_t', 'pa_source_state',
-           'pa_channel_map_init_mono', 'pa_stream_readable_size',
+           'pa_sample_info_cb_t', 'pa_context_get_module_info',
+           'pa_source_state', 'pa_channel_map_init_mono',
+           'pa_stream_readable_size',
            'pa_stream_set_suspended_callback',
-           'pa_cvolume_scale_mask', 'pa_stream_begin_write',
-           'pa_stream_get_time', 'pa_cvolume',
-           'pa_context_set_state_callback', 'pa_sw_cvolume_multiply',
+           'pa_cvolume_scale_mask', 'pa_stream_get_underflow_index',
+           'pa_stream_begin_write', 'pa_stream_get_time',
+           'pa_cvolume', 'pa_context_set_state_callback',
+           'pa_sw_cvolume_multiply',
+           'pa_format_info_from_sample_spec',
            'PA_CHANNEL_POSITION_REAR_LEFT', 'PA_ERR_EXIST',
            'pa_threaded_mainloop_lock', 'pa_io_event',
            'pa_proplist_unset_many', 'PA_SAMPLE_MAX',
@@ -1670,99 +1904,121 @@ __all__ = ['pa_context_set_name',
            'PA_SAMPLE_FLOAT32LE', 'PA_STREAM_FIX_CHANNELS',
            'PA_CONTEXT_NOFLAGS', 'PA_STREAM_EARLY_REQUESTS',
            'pa_update_mode_t', 'pa_proplist_unset', 'PA_ERR_PROTOCOL',
-           'PA_SOURCE_HW_MUTE_CTRL',
+           'pa_prop_type_t', 'PA_SOURCE_HW_MUTE_CTRL',
            'pa_context_set_subscribe_callback',
+           'PA_PORT_AVAILABLE_YES', 'PA_ENCODING_ANY',
+           'pa_format_info_get_prop_type',
            'pa_context_set_default_sink', 'PA_SAMPLE_S24_32LE',
-           'pa_context_get_client_info', 'pa_stream_notify_cb_t',
-           'pa_context_index_cb_t', 'pa_cvolume_merge',
-           'pa_signal_done', 'pa_threaded_mainloop_new',
-           'pa_channel_map_init_extend', 'PA_SUBSCRIPTION_MASK_SINK',
+           'pa_context_get_client_info', 'PA_ENCODING_PCM',
+           'pa_stream_notify_cb_t', 'pa_context_index_cb_t',
+           'pa_cvolume_merge', 'PA_ENCODING_MAX', 'pa_signal_done',
+           'pa_threaded_mainloop_new', 'pa_channel_map_init_extend',
+           'PA_SUBSCRIPTION_MASK_SINK',
            'pa_context_set_sink_mute_by_name', 'pa_sample_spec_equal',
            'pa_mainloop_api_once', 'pa_threaded_mainloop_stop',
-           'pa_timeval_cmp', 'pa_source_flags_t', 'pa_sink_flags',
-           'PA_AUTOLOAD_SOURCE', 'pa_mainloop_get_api',
+           'pa_context_set_port_latency_offset', 'pa_source_flags_t',
+           'pa_sink_flags', 'pa_usec_t', 'pa_mainloop_get_api',
            'PA_CHANNEL_MAP_DEF_MAX', 'pa_usec_to_bytes',
            'PA_ERR_VERSION', 'pa_stream_prebuf', 'PA_IO_EVENT_NULL',
-           'PA_OPERATION_RUNNING', 'PA_CHANNEL_POSITION_LEFT',
-           'pa_cvolume_min', 'PA_CHANNEL_POSITION_RIGHT',
-           'PA_SINK_INVALID_STATE', 'PA_SUBSCRIPTION_EVENT_SINK',
-           'pa_io_event_flags_t', '__suseconds_t',
-           'pa_channel_map_init_stereo', 'PA_CHANNEL_MAP_AUX',
+           'PA_OPERATION_RUNNING', 'pa_format_info_to_sample_spec',
+           'PA_CHANNEL_POSITION_LEFT', 'pa_cvolume_min',
+           'PA_CHANNEL_POSITION_RIGHT', 'PA_SINK_INVALID_STATE',
+           'PA_SUBSCRIPTION_EVENT_SINK', 'pa_io_event_flags_t',
+           '__suseconds_t', 'pa_channel_map_init_stereo',
+           'pa_operation_notify_cb_t', 'PA_CHANNEL_MAP_AUX',
            'pa_threaded_mainloop_unlock', 'PA_SINK_RUNNING',
-           'pa_source_flags', 'pa_stream_proplist_remove',
-           'pa_get_library_version', 'PA_SINK_NETWORK',
-           'pa_stream_event_cb_t',
-           'PA_SUBSCRIPTION_EVENT_SOURCE_OUTPUT', 'pa_source_state_t',
-           'pa_xmalloc0', 'PA_UPDATE_SET',
+           'pa_card_info_cb_t', 'pa_source_flags',
+           'pa_stream_proplist_remove', 'pa_get_library_version',
+           'PA_SINK_NETWORK', 'pa_stream_event_cb_t',
+           'PA_ENCODING_MPEG_IEC61937',
+           'PA_STREAM_INTERPOLATE_TIMING', 'pa_port_available_t',
+           'pa_source_state_t', 'pa_xmalloc0', 'PA_UPDATE_SET',
            'pa_stream_update_timing_info',
            'PA_SUBSCRIPTION_EVENT_REMOVE', 'pa_stat_info',
            'PA_CONTEXT_AUTHORIZING', 'pa_proplist_new',
            'PA_SOURCE_INIT', 'pa_mainloop', 'pa_stream_writable_size',
-           'pa_stream_cork', 'pa_context_set_sink_port_by_name',
+           'pa_encoding_to_string',
+           'pa_context_set_sink_port_by_name',
            'pa_sw_cvolume_snprint_dB',
            'PA_SUBSCRIPTION_MASK_SAMPLE_CACHE',
-           'PA_STREAM_INTERPOLATE_TIMING',
+           'PA_SINK_DYNAMIC_LATENCY',
            'pa_context_set_sink_input_volume',
            'pa_stream_proplist_update', 'pa_volume_snprint',
            'pa_context_get_sink_info_by_name', 'uint64_t',
            'pa_spawn_api', 'PA_CHANNEL_POSITION_TOP_FRONT_LEFT',
            'pa_context_set_sink_input_mute',
            'PA_CHANNEL_POSITION_TOP_CENTER', 'pa_get_home_dir',
-           'pa_operation_unref', 'PA_CHANNEL_POSITION_SUBWOOFER',
+           'pa_operation_unref', 'PA_ERR_BADSTATE', 'pa_mainloop_run',
            'pa_mainloop_iterate', 'PA_SUBSCRIPTION_MASK_NULL',
-           'PA_SOURCE_NOFLAGS', 'pa_sample_format_is_le',
-           'pa_xmalloc', 'PA_ERR_MODINITFAILED', 'timeval',
+           'pa_cvolume_inc_clamp',
+           'pa_format_info_get_prop_int_array', 'pa_device_type',
+           'pa_sample_format_is_le', 'pa_xmalloc',
+           'PA_ENCODING_EAC3_IEC61937', 'timeval', 'pa_device_type_t',
            'pa_sample_spec_snprint', 'pa_stream_get_sample_spec',
-           'PA_STREAM_START_UNMUTED', 'PA_STREAM_TERMINATED',
-           'pa_context_get_card_info_list', 'pa_cvolume_scale',
+           'pa_sink_state_t', 'PA_STREAM_TERMINATED',
+           'pa_context_get_card_info_list', 'pa_seek_mode_t',
            'pa_proplist', 'pa_cvolume_init',
-           'pa_stream_set_read_callback', 'pa_server_info',
-           'PA_SAMPLE_ALAW', 'PA_SUBSCRIPTION_MASK_MODULE',
-           'PA_STREAM_FAILED', 'pa_sw_volume_divide',
-           'pa_stream_finish_upload', 'pa_sw_volume_from_dB',
-           'PA_ERR_AUTHKEY', 'PA_SUBSCRIPTION_EVENT_NEW',
-           'PA_CHANNEL_POSITION_MAX', 'pa_source_output_info',
-           'pa_context_state_t',
+           'pa_stream_set_read_callback', 'pa_volume_t',
+           'pa_server_info', 'PA_SAMPLE_ALAW',
+           'PA_SUBSCRIPTION_MASK_MODULE', 'PA_STREAM_FAILED',
+           'pa_sw_volume_divide', 'pa_stream_finish_upload',
+           'pa_sw_volume_from_dB',
+           'pa_format_info_set_prop_int_array', 'PA_ERR_AUTHKEY',
+           'PA_SUBSCRIPTION_EVENT_NEW', 'PA_CHANNEL_POSITION_MAX',
+           'pa_source_output_info', 'pa_context_state_t',
            'PA_STREAM_DONT_INHIBIT_AUTO_SUSPEND',
            'pa_io_event_destroy_cb_t', 'PA_ERR_MAX',
            'pa_proplist_to_string', 'PA_CHANNEL_POSITION_SIDE_RIGHT',
            'pa_context_stat', 'pa_locale_to_utf8',
            'pa_context_set_source_port_by_index',
            'pa_stream_set_latency_update_callback',
-           'pa_operation_state_t', 'PA_CHANNEL_POSITION_AUX24',
+           'pa_operation_state_t', 'PA_UPDATE_MERGE',
            'pa_context_get_state', 'PA_ERR_FORKED', 'pa_source_info',
            'PA_CHANNEL_POSITION_AUX26', 'PA_ERR_CONNECTIONREFUSED',
            'PA_SUBSCRIPTION_EVENT_MODULE', 'pa_sample_size',
-           'pa_msleep', 'PA_CHANNEL_POSITION_AUX30',
-           'PA_CHANNEL_POSITION_AUX31', 'PA_ERR_ACCESS',
-           'PA_SAMPLE_ULAW', 'pa_usec_t', 'pa_autoload_info_cb_t',
-           'pa_gettimeofday', 'pa_card_info_cb_t',
-           'PA_STREAM_ADJUST_LATENCY', 'pa_parse_sample_format',
-           'PA_IO_EVENT_ERROR', 'pa_threaded_mainloop_get_api',
-           'pa_bytes_snprint', 'pa_context_event_cb_t',
+           'pa_msleep', 'pa_operation_set_state_callback',
+           'pa_context_get_sink_info_list',
+           'PA_CHANNEL_POSITION_AUX30', 'PA_CHANNEL_POSITION_AUX31',
+           'PA_ERR_ACCESS', 'PA_SAMPLE_ULAW',
+           'PA_PROP_TYPE_INT_RANGE', 'pa_autoload_info_cb_t',
+           'pa_gettimeofday', 'pa_format_info_get_prop_string_array',
+           'PA_STREAM_ADJUST_LATENCY', 'pa_cvolume_equal',
+           'pa_parse_sample_format', 'PA_IO_EVENT_ERROR',
+           'pa_context_set_sink_port_by_index',
+           'PA_DEVICE_TYPE_SOURCE', 'pa_simple_get_latency',
+           'pa_threaded_mainloop_get_api', 'pa_bytes_snprint',
+           'PA_PORT_AVAILABLE_UNKNOWN', 'pa_context_event_cb_t',
            'pa_cvolume_valid', 'pa_context_rttime_restart',
            'pa_mainloop_poll', 'PA_STREAM_NO_REMAP_CHANNELS',
            'pa_mainloop_free', 'PA_SINK_SUSPENDED',
-           'pa_threaded_mainloop_start', 'pa_mainloop_run',
-           'pa_autoload_type', 'pa_threaded_mainloop',
-           'PA_SINK_DYNAMIC_LATENCY', 'pa_context_kill_client',
-           'pa_sink_state', 'pa_stream_write', 'pa_sink_port_info',
-           'pa_mainloop_new', 'pa_context_get_source_info_by_name',
-           'PA_STREAM_NO_REMIX_CHANNELS', 'pa_context_remove_sample',
-           'PA_STREAM_FAIL_ON_SUSPEND',
-           'pa_context_get_sink_info_list',
-           'pa_stream_set_state_callback', 'pa_client_info_cb_t',
+           'pa_threaded_mainloop_start',
+           'pa_format_info_set_sample_format',
+           'pa_format_info_set_prop_int', 'pa_autoload_type',
+           'pa_threaded_mainloop', 'pa_direction',
+           'pa_context_kill_client', 'pa_sink_state',
+           'pa_stream_write', 'pa_sink_port_info', 'pa_mainloop_new',
+           'pa_format_info_get_prop_int',
+           'pa_context_get_source_info_by_name',
+           'PA_STREAM_NO_REMIX_CHANNELS',
+           'pa_stream_set_buffer_attr_callback',
+           'pa_context_remove_sample', 'PA_STREAM_FAIL_ON_SUSPEND',
+           'pa_context_get_tile_size', 'pa_stream_set_state_callback',
+           'pa_proplist_key_valid', 'pa_client_info_cb_t',
            'pa_stream_connect_playback', 'pa_context_unref',
-           'pa_context_new_with_proplist',
+           'pa_format_info_set_prop_int_range',
+           'pa_context_new_with_proplist', 'PA_SINK_SET_FORMATS',
+           'pa_stream_new_extended',
            'PA_CHANNEL_POSITION_TOP_REAR_LEFT',
            'PA_SUBSCRIPTION_EVENT_AUTOLOAD',
            'PA_CHANNEL_POSITION_FRONT_CENTER',
            'PA_SEEK_RELATIVE_ON_READ', 'pa_channel_position',
            'pa_mainloop_api', 'pa_proplist_gets',
+           'pa_format_info_get_prop_int_range',
            'pa_context_set_default_source', 'PA_CHANNEL_POSITION_LFE',
-           'pa_sample_format', 'pa_cvolume_min_mask',
-           'PA_STREAM_PEAK_DETECT', 'PA_IO_EVENT_INPUT',
-           'PA_STREAM_VARIABLE_RATE', 'PA_ERR_NODATA',
+           'pa_sample_format', 'pa_sw_cvolume_divide_scalar',
+           'pa_cvolume_min_mask', 'PA_STREAM_PEAK_DETECT',
+           'PA_IO_EVENT_INPUT', 'PA_STREAM_VARIABLE_RATE',
+           'PA_ERR_NODATA', 'pa_port_available',
            'pa_channel_position_to_pretty_string',
            'pa_stream_is_corked', 'pa_context_get_sink_input_info',
            'pa_sw_volume_snprint_dB',
@@ -1770,14 +2026,15 @@ __all__ = ['pa_context_set_name',
            'pa_stream_get_device_name', 'pa_operation_state',
            'pa_channel_map_mask', 'pa_stream_disconnect',
            'pa_cvolume_set_balance', 'pa_get_user_name',
-           'pa_proplist_to_string_sep', 'PA_STREAM_START_MUTED',
+           'pa_timeval_cmp', 'pa_proplist_to_string_sep',
+           'PA_STREAM_START_MUTED', 'PA_SOURCE_NOFLAGS',
            'pa_threaded_mainloop_accept', 'PA_SAMPLE_S32LE',
            'pa_context_notify_cb_t',
            'pa_context_set_source_mute_by_index', 'PA_SOURCE_IDLE',
-           'pa_context_suspend_source_by_index',
+           'pa_error_code', 'pa_format_info_free_string_array',
            'pa_context_play_sample', 'pa_channel_map_to_name',
            'pa_context_get_module_info_list', 'pa_operation',
-           'PA_STREAM_RECORD', 'pa_context_set_sink_port_by_index',
+           'PA_STREAM_RECORD', 'PA_AUTOLOAD_SOURCE',
            'pa_context_get_card_info_by_name', 'pa_context_subscribe',
            'PA_AUTOLOAD_SINK', 'pa_context_get_source_info_list',
            'pa_timeval_diff', 'PA_SOURCE_RUNNING',
@@ -1788,28 +2045,32 @@ __all__ = ['pa_context_set_name',
            'PA_OPERATION_DONE', 'pa_mainloop_dispatch',
            'pa_proplist_set', 'PA_SINK_INIT', 'pa_cvolume_max_mask',
            'PA_STREAM_NODIRECTION', 'pa_autoload_info',
-           'pa_operation_ref', 'pa_sink_info_cb_t',
+           'pa_context_kill_sink_input', 'pa_sink_info_cb_t',
            'pa_channel_map_superset',
            'PA_SUBSCRIPTION_MASK_SOURCE_OUTPUT',
            'pa_card_profile_info', 'pa_context_get_sample_info_list',
-           'pa_subscription_mask', 'PA_STREAM_DONT_MOVE',
-           'pa_threaded_mainloop_free', 'PA_SAMPLE_S16BE',
-           'pa_stream_connect_upload', 'PA_ERR_KILLED',
-           'pa_context_get_source_output_info', 'pa_stat_info_cb_t',
-           'pa_ascii_filter', 'pa_context_get_autoload_info_list',
-           'PA_STREAM_PLAYBACK', 'pa_sw_volume_to_dB',
-           'pa_sink_state_t', 'uint32_t', 'pa_volume_t',
-           'PA_STREAM_UNCONNECTED', 'PA_CHANNEL_MAP_WAVEEX',
-           'pa_channel_map_init', 'pa_stream_new_with_proplist',
-           'PA_STREAM_NOFLAGS', 'pa_stream_success_cb_t',
-           'PA_STREAM_NOT_MONOTONIC', 'pa_stream_drain',
-           'PA_SINK_IDLE', 'pa_context_new',
+           'pa_simple_free', 'pa_subscription_mask',
+           'PA_STREAM_DONT_MOVE', 'pa_threaded_mainloop_free',
+           'PA_SAMPLE_S16BE', 'pa_stream_connect_upload',
+           'PA_ERR_KILLED', 'pa_context_get_source_output_info',
+           'pa_stat_info_cb_t', 'pa_ascii_filter',
+           'pa_context_get_autoload_info_list',
+           'PA_ENCODING_AC3_IEC61937', 'PA_STREAM_PLAYBACK',
+           'pa_format_info_set_channels', 'pa_sw_volume_to_dB',
+           'pa_format_info', 'PA_STREAM_START_UNMUTED', 'uint32_t',
+           'PA_PROP_TYPE_STRING', 'PA_STREAM_UNCONNECTED',
+           'PA_CHANNEL_MAP_WAVEEX', 'pa_stream_cork',
+           'pa_channel_map_init', 'PA_ERR_MODINITFAILED',
+           'pa_stream_new_with_proplist', 'PA_STREAM_NOFLAGS',
+           'pa_stream_success_cb_t', 'PA_STREAM_NOT_MONOTONIC',
+           'pa_stream_drain', 'PA_SINK_IDLE', 'pa_context_new',
            'pa_context_suspend_sink_by_index', 'pa_cvolume_dec',
            'PA_CONTEXT_TERMINATED', 'pa_context_rttime_new',
-           'pa_module_info_cb_t',
+           'PA_PROP_TYPE_INVALID', 'pa_module_info_cb_t',
            'PA_CHANNEL_POSITION_TOP_REAR_RIGHT', 'pa_stream_peek',
            'pa_channel_map_can_fade', 'PA_CONTEXT_FAILED',
            'pa_context_set_sink_mute_by_index', 'pa_sink_info',
+           'pa_context_set_source_output_volume',
            'pa_sample_spec_valid', 'pa_operation_get_state',
            'pa_context_proplist_remove',
            'pa_context_move_source_output_by_index',
@@ -1818,11 +2079,11 @@ __all__ = ['pa_context_set_name',
            'PA_CHANNEL_POSITION_FRONT_LEFT', 'pa_mainloop_quit',
            'pa_channel_map_init_auto', 'pa_cvolume_get_balance',
            'pa_source_info_cb_t', 'pa_context_get_index',
-           'pa_signal_free', 'pa_cvolume_compatible',
+           'pa_signal_free', 'pa_cvolume_compatible', 'pa_encoding',
            'PA_SUBSCRIPTION_MASK_SERVER', 'pa_cvolume_get_fade',
-           'pa_seek_mode_t', 'pa_utf8_filter',
+           'pa_context', 'pa_utf8_filter',
            'pa_stream_update_sample_rate', 'pa_sw_volume_multiply',
-           'pa_cvolume_snprint', 'pa_cvolume_equal',
+           'pa_cvolume_snprint', 'pa_format_info_new',
            'pa_stream_flags', 'PA_CHANNEL_POSITION_AUX2',
            'PA_CHANNEL_POSITION_AUX3', 'PA_CHANNEL_POSITION_AUX0',
            'PA_SAMPLE_S16LE', 'PA_CHANNEL_POSITION_AUX6',
@@ -1834,32 +2095,36 @@ __all__ = ['pa_context_set_name',
            'pa_time_event', 'PA_CHANNEL_MAP_AIFF', 'PA_ERR_NOENTITY',
            'PA_CHANNEL_POSITION_REAR_RIGHT', 'pa_stream_get_context',
            'pa_sw_volume_to_linear', 'pa_source_output_info_cb_t',
-           'pa_cvolume_remap', 'pa_proplist_clear',
+           'pa_format_info_set_prop_string', 'pa_proplist_clear',
            'pa_context_get_server', 'pa_stream_set_overflow_callback',
            'PA_ERR_BUSY', 'pa_cvolume_compatible_with_channel_map',
-           'pa_utf8_valid', 'pa_proplist_free',
+           'pa_simple_new', 'pa_utf8_valid', 'pa_proplist_free',
            'pa_stream_set_underflow_callback', 'pa_channel_map',
            'pa_update_mode', 'PA_UPDATE_REPLACE',
            'pa_stream_is_suspended', 'PA_SAMPLE_S24LE',
-           'pa_context_get_card_info_by_index',
+           'PA_ENCODING_INVALID', 'pa_context_get_card_info_by_index',
+           'pa_proplist_equal', 'PA_PROP_TYPE_STRING_ARRAY',
+           'pa_stream_get_index',
            'pa_context_get_sample_info_by_name',
-           'PA_SINK_HW_VOLUME_CTRL', 'PA_OPERATION_CANCELLED',
+           'PA_SINK_HW_VOLUME_CTRL', 'PA_ENCODING_MPEG2_AAC_IEC61937',
+           'PA_OPERATION_CANCELLED',
            'pa_context_get_sink_input_info_list',
            'pa_threaded_mainloop_get_retval', 'PA_SAMPLE_S32BE',
            'pa_proplist_copy', 'pa_context_proplist_update',
            'PA_SAMPLE_FLOAT32BE', 'pa_context_get_sink_info_by_index',
-           'pa_proplist_update', 'pa_context', 'PA_ERR_UNKNOWN',
-           'pa_stream_drop', 'pa_signal_cb_t',
-           'pa_context_set_source_volume_by_name',
+           'pa_proplist_update', 'PA_ERR_UNKNOWN', 'pa_stream_drop',
+           'pa_signal_cb_t', 'pa_context_set_source_volume_by_name',
            'pa_context_subscribe_cb_t', 'pa_source_port_info',
-           'PA_SINK_NOFLAGS', 'PA_CHANNEL_POSITION_SIDE_LEFT',
-           'PA_SUBSCRIPTION_EVENT_CHANGE', 'PA_OK',
+           'pa_cvolume_channels_equal_to', 'PA_SINK_NOFLAGS',
+           'PA_CHANNEL_POSITION_SIDE_LEFT', 'PA_PROP_TYPE_INT_ARRAY',
+           'pa_simple_read', 'PA_SUBSCRIPTION_EVENT_CHANGE', 'PA_OK',
            'pa_channel_position_to_string', 'pa_context_load_module',
            'pa_context_connect', 'pa_autoload_type_t',
            'PA_SUBSCRIPTION_EVENT_CARD', 'pa_cvolume_inc',
            'PA_ERR_INVALID', 'pa_channel_map_def', 'pa_proplist_get',
-           'pa_context_flags_t', 'PA_ERR_NOEXTENSION',
-           'pa_signal_set_destroy', 'pa_poll_func',
+           'pa_card_port_info', 'pa_context_flags_t',
+           'PA_ERR_NOEXTENSION', 'pa_signal_set_destroy',
+           'pa_poll_func', 'pa_context_set_source_output_mute',
            'pa_timeval_store', 'PA_SUBSCRIPTION_EVENT_TYPE_MASK',
            'pa_proplist_isempty', 'pa_cvolume_avg_mask',
            'pa_context_exit_daemon',
@@ -1867,7 +2132,7 @@ __all__ = ['pa_context_set_name',
            'pa_context_set_event_callback', 'PA_ERR_NOTIMPLEMENTED',
            'pa_subscription_event_type',
            'pa_context_move_sink_input_by_name', 'int64_t',
-           'pa_mainloop_set_poll_func', 'pa_context_kill_sink_input',
+           'pa_mainloop_set_poll_func', 'PA_SOURCE_FLAT_VOLUME',
            'PA_ERR_OBSOLETE', 'pa_mainloop_prepare',
            'pa_context_is_pending', 'PA_STREAM_CREATING',
            'pa_context_get_autoload_info_by_name', 'pa_context_state',
@@ -1882,8 +2147,9 @@ __all__ = ['pa_context_set_name',
            'pa_proplist_contains', 'PA_ERR_INVALIDSERVER',
            'pa_stream_get_monitor_stream', 'PA_CHANNEL_POSITION_AUX1',
            'pa_sink_input_info_cb_t', 'pa_channel_map_has_position',
-           'PA_CONTEXT_NOAUTOSPAWN', 'pa_sw_volume_from_linear',
-           'pa_cvolume_channels_equal_to', 'pa_context_unload_module',
-           'pa_signal_event', 'pa_sink_input_info',
-           'pa_sample_format_to_string', 'pollfd',
-           'pa_context_success_cb_t', 'pa_buffer_attr']
+           'PA_STREAM_READY', 'pa_sw_volume_from_linear',
+           'PA_STREAM_RELATIVE_VOLUME', 'pa_context_unload_module',
+           'pa_format_info_valid', 'pa_signal_event',
+           'pa_sink_input_info', 'pa_sample_format_to_string',
+           'pa_format_info_snprint', 'pa_context_success_cb_t',
+           'pa_buffer_attr']
