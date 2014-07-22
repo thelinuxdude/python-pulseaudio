@@ -8,8 +8,8 @@ setup(name='libpulseaudio',
       author='Valodim',
       author_email='valodim@mugenguild.com',
       license='LGPL',
-      url='http://github.com/valodim/python-pulseaudio',
+      url='http://github.com/thelinuxdude/python-pulseaudio',
       packages=['pulseaudio'],
-      provides=['libpulseaudio']
-      download_url='http://datatomb.de/~valodim/libpulseaudio-1.1.tar.gz'
+      provides=['libpulseaudio'],
+      download_url='http://github.com/thelinuxdude/libpulseaudio-1.1.tar.gz'
      )
