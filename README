@@ -9,11 +9,4 @@ xml2py.py -k efstd -o lib_pulseaudio.py -l 'pulse' -r '(pa|PA)_.+' pa.xml
 
 
 --- Script used to build interface ---
-#!/bin/sh
-#INCS=/home/craig/hg/openembed/touchlink.1-tmp/sysroots/armv7a-none-linux-gnueabi/usr/include
-INCS=/home/craig/hg/openembed/touchlink.1-tmp/work/armv7a-none-linux-gnueabi/pulseaudio-4.0-r11.2/pulseaudio-4.0/src
-
-h2xml -I$INCS -I. -o pa.xml pulse/mainloop-api.h pulse/sample.h pulse/def.h pulse/operation.h pulse/context.h pulse/channelmap.h pulse/volume.h pulse/stream.h pulse/introspect.h pulse/subscribe.h pulse/scache.h pulse/version.h pulse/error.h pulse/xmalloc.h pulse/utf8.h pulse/thread-mainloop.h pulse/mainloop.h pulse/mainloop-signal.h pulse/util.h pulse/timeval.h pulse/simple.h pulse/volume.h pa_headers.h
-
-xml2py -v -k efst -o lib_pulseaudio.py -l 'pulse' -l 'pulse-simple' -r '(pa|PA)_.+' pa.xml
-
+see genbind
