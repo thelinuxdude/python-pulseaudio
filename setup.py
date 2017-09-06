@@ -3,7 +3,7 @@
 from distutils.core import setup
 
 setup(name='libpulseaudio',
-      version='10.0',
+      version='8.0',
       description='simple libpulseaudio bindings',
       author='Valodim',
       author_email='valodim@mugenguild.com',
